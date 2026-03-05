@@ -1,3 +1,6 @@
+## Unreleased
+- Updated widget icon assets to the shared Olari icon set.
+
 ## [1.0.2] - 2026-03-04
 
 - Fixed web runtime packaging path to remove duplicate nesting that caused `404` on `ComboTreeMultiEntity.js`.
@@ -29,3 +32,4 @@
 - Kept selection/filtering behavior from ComboTree, including select-all and keyboard navigation.
 - Updated toolbox display name to `ComboTree MultiEntity`.
 - Updated package metadata and module path for the new widget package.
+
