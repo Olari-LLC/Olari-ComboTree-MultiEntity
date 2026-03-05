@@ -32,8 +32,6 @@
     "@mendix/pluggable-widgets-tools": "^11.6.0"
   },
   "config": {
-    "projectPath": "C:\\Users\\willi\\Mendix\\Olari-main",
-    "mendixHost": "http://localhost:8080",
     "developmentPort": 3004
   },
   "resolutions": {
