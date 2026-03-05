@@ -1,3 +1,8 @@
+## [1.0.2] - 2026-03-04
+
+- Fixed web runtime packaging path to remove duplicate nesting that caused `404` on `ComboTreeMultiEntity.js`.
+- Aligned MPK output naming to `olari.ComboTreeMultiEntity.mpk`.
+
 ## [1.0.1] - 2026-03-04
 
 - Added release note coverage for DataGrid Core usage.
