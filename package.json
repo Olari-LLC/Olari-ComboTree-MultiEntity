@@ -1,0 +1,49 @@
+{
+  "name": "olari.combotreemultientity",
+  "widgetName": "ComboTree",
+  "version": "1.0.0",
+  "description": "Dropdown tree widget with multi-entity hierarchical selection (up to 3 levels) for Mendix.",
+  "author": "Olari",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
+  "mxpackage": {
+    "name": "olari.combotreemultientity",
+    "type": "widget",
+    "mpkName": "olari.combotreemultientity.mpk"
+  },
+  "packagePath": "olari.combotreemultientity",
+  "scripts": {
+    "start": "pluggable-widgets-tools start:server",
+    "dev": "pluggable-widgets-tools start:web",
+    "dev:native": "rollup --config rollup.config.native.override.mjs --watch",
+    "build": "npm run build:web && npm run build:native",
+    "build:web": "pluggable-widgets-tools build:web",
+    "build:native": "rollup --config rollup.config.native.override.mjs",
+    "lint": "pluggable-widgets-tools lint",
+    "lint:fix": "pluggable-widgets-tools lint:fix",
+    "release": "pluggable-widgets-tools release:web"
+  },
+  "dependencies": {
+    "classnames": "^2.5.1"
+  },
+  "devDependencies": {
+    "@mendix/pluggable-widgets-tools": "^11.6.0"
+  },
+  "config": {
+    "projectPath": "C:\\Users\\willi\\Mendix\\Olari-main",
+    "mendixHost": "http://localhost:8080",
+    "developmentPort": 3004
+  },
+  "resolutions": {
+    "react": "19.0.0",
+    "@types/react": "19.0.0",
+    "react-native": "0.78.2"
+  },
+  "overrides": {
+    "react": "19.0.0",
+    "@types/react": "19.0.0",
+    "react-native": "0.78.2"
+  }
+}

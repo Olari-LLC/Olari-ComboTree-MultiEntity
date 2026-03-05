@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="olari.combotreemultientity.ComboTreeMultiEntity" pluginWidget="true" needsEntityContext="true" offlineCapable="true"
+    supportedPlatform="All"
+    xmlns="http://www.mendix.com/widget/1.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>ComboTree MultiEntity</name>
+    <description>Dropdown tree widget that combines up to 3 related entities into one parent-child selection tree.</description>
+    <studioProCategory>Input elements</studioProCategory>
+    <studioCategory>Display</studioCategory>
+    <properties>
+        <propertyGroup caption="General">
+            <propertyGroup caption="Level 1 (Root)">
+                <property key="level1DataSource" type="datasource" isList="true" required="true">
+                    <caption>Level 1 data source</caption>
+                    <description>Root entity records (for example: Country).</description>
+                </property>
+                <property key="level1Id" type="attribute" dataSource="level1DataSource" required="true">
+                    <caption>Level 1 ID</caption>
+                    <description>Unique ID for level 1 records.</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                        <attributeType name="Integer" />
+                        <attributeType name="Long" />
+                        <attributeType name="AutoNumber" />
+                    </attributeTypes>
+                </property>
+                <property key="level1Caption" type="attribute" dataSource="level1DataSource" required="true">
+                    <caption>Level 1 caption</caption>
+                    <description>Display caption for level 1 records.</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="level1Label" type="textTemplate" required="false">
+                    <caption>Level 1 label</caption>
+                    <description>Badge label shown for level 1 items.</description>
+                    <translations>
+                        <translation lang="en_US">Level 1</translation>
+                    </translations>
+                </property>
+                <property key="level1Icon" type="attribute" dataSource="level1DataSource" required="false">
+                    <caption>Level 1 icon class</caption>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="level1ExpandedAttr" type="attribute" dataSource="level1DataSource" required="false">
+                    <caption>Level 1 expanded</caption>
+                    <attributeTypes>
+                        <attributeType name="Boolean" />
+                    </attributeTypes>
+                </property>
+                <property key="level1SelectableAttr" type="attribute" dataSource="level1DataSource" required="false">
+                    <caption>Level 1 selectable</caption>
+                    <attributeTypes>
+                        <attributeType name="Boolean" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+
+            <propertyGroup caption="Level 2 (Child of Level 1)">
+                <property key="level2DataSource" type="datasource" isList="true" required="true">
+                    <caption>Level 2 data source</caption>
+                    <description>Child entity records (for example: State/Province).</description>
+                </property>
+                <property key="level2Id" type="attribute" dataSource="level2DataSource" required="true">
+                    <caption>Level 2 ID</caption>
+                    <description>Unique ID for level 2 records.</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                        <attributeType name="Integer" />
+                        <attributeType name="Long" />
+                        <attributeType name="AutoNumber" />
+                    </attributeTypes>
+                </property>
+                <property key="level2Caption" type="attribute" dataSource="level2DataSource" required="true">
+                    <caption>Level 2 caption</caption>
+                    <description>Display caption for level 2 records.</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="level2ParentRef" type="association" dataSource="level2DataSource" required="true">
+                    <caption>Level 2 parent reference</caption>
+                    <description>Reference from level 2 item to its level 1 parent.</description>
+                    <associationTypes>
+                        <associationType name="Reference" />
+                    </associationTypes>
+                </property>
+                <property key="level2Label" type="textTemplate" required="false">
+                    <caption>Level 2 label</caption>
+                    <description>Badge label shown for level 2 items.</description>
+                    <translations>
+                        <translation lang="en_US">Level 2</translation>
+                    </translations>
+                </property>
+                <property key="level2Icon" type="attribute" dataSource="level2DataSource" required="false">
+                    <caption>Level 2 icon class</caption>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="level2ExpandedAttr" type="attribute" dataSource="level2DataSource" required="false">
+                    <caption>Level 2 expanded</caption>
+                    <attributeTypes>
+                        <attributeType name="Boolean" />
+                    </attributeTypes>
+                </property>
+                <property key="level2SelectableAttr" type="attribute" dataSource="level2DataSource" required="false">
+                    <caption>Level 2 selectable</caption>
+                    <attributeTypes>
+                        <attributeType name="Boolean" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+
+            <propertyGroup caption="Level 3 (Optional child of Level 2)">
+                <property key="enableLevel3" type="boolean" defaultValue="false">
+                    <caption>Enable level 3</caption>
+                    <description>Enable a third hierarchy level (for example: County).</description>
+                </property>
+                <property key="level3DataSource" type="datasource" isList="true" required="false">
+                    <caption>Level 3 data source</caption>
+                    <description>Third level child entity records.</description>
+                </property>
+                <property key="level3Id" type="attribute" dataSource="level3DataSource" required="false">
+                    <caption>Level 3 ID</caption>
+                    <description>Unique ID for level 3 records.</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                        <attributeType name="Integer" />
+                        <attributeType name="Long" />
+                        <attributeType name="AutoNumber" />
+                    </attributeTypes>
+                </property>
+                <property key="level3Caption" type="attribute" dataSource="level3DataSource" required="false">
+                    <caption>Level 3 caption</caption>
+                    <description>Display caption for level 3 records.</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="level3ParentRef" type="association" dataSource="level3DataSource" required="false">
+                    <caption>Level 3 parent reference</caption>
+                    <description>Reference from level 3 item to its level 2 parent.</description>
+                    <associationTypes>
+                        <associationType name="Reference" />
+                    </associationTypes>
+                </property>
+                <property key="level3Label" type="textTemplate" required="false">
+                    <caption>Level 3 label</caption>
+                    <description>Badge label shown for level 3 items.</description>
+                    <translations>
+                        <translation lang="en_US">Level 3</translation>
+                    </translations>
+                </property>
+                <property key="level3Icon" type="attribute" dataSource="level3DataSource" required="false">
+                    <caption>Level 3 icon class</caption>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="level3ExpandedAttr" type="attribute" dataSource="level3DataSource" required="false">
+                    <caption>Level 3 expanded</caption>
+                    <attributeTypes>
+                        <attributeType name="Boolean" />
+                    </attributeTypes>
+                </property>
+                <property key="level3SelectableAttr" type="attribute" dataSource="level3DataSource" required="false">
+                    <caption>Level 3 selectable</caption>
+                    <attributeTypes>
+                        <attributeType name="Boolean" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+
+            <propertyGroup caption="Selection">
+                <property key="selectionMode" type="enumeration" defaultValue="single" required="true">
+                    <caption>Selection mode</caption>
+                    <description>Single: select one node. Multiple: select multiple nodes with checkboxes.</description>
+                    <enumerationValues>
+                        <enumerationValue key="single">Single</enumerationValue>
+                        <enumerationValue key="multiple">Multiple (checkboxes)</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="autoCheckChildren" type="boolean" defaultValue="true">
+                    <caption>Auto-check children</caption>
+                    <description>When a parent is checked, automatically check all children (multi-select mode).</description>
+                </property>
+                <property key="autoCheckParent" type="boolean" defaultValue="true">
+                    <caption>Auto-check parent</caption>
+                    <description>When all children are checked, automatically check the parent (multi-select mode).</description>
+                </property>
+                <property key="showSelectAll" type="boolean" defaultValue="false">
+                    <caption>Show select all</caption>
+                    <description>Show a Select All / Clear All button at the top of the dropdown (multi-select mode).</description>
+                </property>
+            </propertyGroup>
+
+            <propertyGroup caption="Output associations">
+                <property key="selectedLevel1RefSet" type="association" required="false">
+                    <caption>Selected level 1 references</caption>
+                    <description>Reference set to store selected level 1 objects (for example selected countries).</description>
+                    <associationTypes>
+                        <associationType name="ReferenceSet" />
+                    </associationTypes>
+                </property>
+                <property key="selectedLevel2RefSet" type="association" required="false">
+                    <caption>Selected level 2 references</caption>
+                    <description>Reference set to store selected level 2 objects (for example selected states/provinces).</description>
+                    <associationTypes>
+                        <associationType name="ReferenceSet" />
+                    </associationTypes>
+                </property>
+                <property key="selectedLevel3RefSet" type="association" required="false">
+                    <caption>Selected level 3 references</caption>
+                    <description>Reference set to store selected level 3 objects (for example selected counties).</description>
+                    <associationTypes>
+                        <associationType name="ReferenceSet" />
+                    </associationTypes>
+                </property>
+            </propertyGroup>
+
+            <propertyGroup caption="Display">
+                <property key="placeholderText" type="textTemplate" required="false">
+                    <caption>Placeholder text</caption>
+                    <description>Text shown when no value is selected.</description>
+                    <translations>
+                        <translation lang="en_US">Select...</translation>
+                    </translations>
+                </property>
+                <property key="noOptionsText" type="textTemplate" required="false">
+                    <caption>No results text</caption>
+                    <description>Text shown when filter returns no matching nodes.</description>
+                    <translations>
+                        <translation lang="en_US">No results found</translation>
+                    </translations>
+                </property>
+                <property key="selectedItemsDisplay" type="enumeration" defaultValue="text" required="true">
+                    <caption>Show selected as</caption>
+                    <description>How selected items are displayed in the input area (multi-select mode).</description>
+                    <enumerationValues>
+                        <enumerationValue key="text">Text (comma-separated)</enumerationValue>
+                        <enumerationValue key="chips">Chips / Labels</enumerationValue>
+                        <enumerationValue key="count">Count badge</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="showEntityBadge" type="boolean" defaultValue="true">
+                    <caption>Show entity badges</caption>
+                    <description>Display an entity level badge next to each node caption.</description>
+                </property>
+                <property key="clearable" type="boolean" defaultValue="true">
+                    <caption>Clearable</caption>
+                    <description>Show a clear button to remove selection.</description>
+                </property>
+                <property key="maxDropdownHeight" type="integer" defaultValue="300" required="true">
+                    <caption>Max dropdown height</caption>
+                    <description>Maximum height of the dropdown popup in pixels.</description>
+                </property>
+            </propertyGroup>
+
+            <propertyGroup caption="Tree behavior">
+                <property key="expandMode" type="enumeration" defaultValue="multiple" required="true">
+                    <caption>Expand mode</caption>
+                    <description>Multiple: several branches can be expanded at once. Single: expanding a branch collapses others at the same level (accordion).</description>
+                    <enumerationValues>
+                        <enumerationValue key="multiple">Multiple</enumerationValue>
+                        <enumerationValue key="single">Single (accordion)</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="defaultExpandAll" type="boolean" defaultValue="false">
+                    <caption>Expand all on open</caption>
+                    <description>Expand all tree nodes when the dropdown opens.</description>
+                </property>
+                <property key="showNodeCount" type="boolean" defaultValue="false">
+                    <caption>Show child count</caption>
+                    <description>Display the number of children next to each parent node.</description>
+                </property>
+            </propertyGroup>
+
+            <propertyGroup caption="Label">
+                <systemProperty key="Label" />
+            </propertyGroup>
+            <propertyGroup caption="Conditional visibility">
+                <systemProperty key="Visibility" />
+            </propertyGroup>
+            <propertyGroup caption="Editability">
+                <systemProperty key="Editability" />
+                <property key="readOnlyStyle" type="enumeration" defaultValue="text">
+                    <caption>Read-only style</caption>
+                    <description>How the widget appears in read-only mode.</description>
+                    <enumerationValues>
+                        <enumerationValue key="bordered">Control</enumerationValue>
+                        <enumerationValue key="text">Content only</enumerationValue>
+                    </enumerationValues>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+
+        <propertyGroup caption="Filtering">
+            <propertyGroup caption="Filter">
+                <property key="allowFiltering" type="boolean" defaultValue="true">
+                    <caption>Allow filtering</caption>
+                    <description>Show a search input to filter tree nodes.</description>
+                </property>
+                <property key="filterType" type="enumeration" defaultValue="contains" required="true">
+                    <caption>Filter type</caption>
+                    <description>How the filter text is matched against node captions.</description>
+                    <enumerationValues>
+                        <enumerationValue key="contains">Contains</enumerationValue>
+                        <enumerationValue key="startsWith">Starts with</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="filterPlaceholder" type="textTemplate" required="false">
+                    <caption>Filter placeholder</caption>
+                    <description>Placeholder text for the filter input.</description>
+                    <translations>
+                        <translation lang="en_US">Search...</translation>
+                    </translations>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+
+        <propertyGroup caption="Events">
+            <property key="onChangeAction" type="action" required="false">
+                <caption>On change</caption>
+                <description>Action triggered when the selection changes.</description>
+            </property>
+            <property key="onOpenAction" type="action" required="false">
+                <caption>On open</caption>
+                <description>Action triggered when the dropdown opens.</description>
+            </property>
+            <property key="onCloseAction" type="action" required="false">
+                <caption>On close</caption>
+                <description>Action triggered when the dropdown closes.</description>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="Accessibility">
+            <propertyGroup caption="ARIA">
+                <property key="ariaLabel" type="textTemplate" required="false">
+                    <caption>Aria label</caption>
+                    <description>Accessible label for the dropdown tree.</description>
+                    <translations>
+                        <translation lang="en_US">Multi-entity dropdown tree</translation>
+                    </translations>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+    </properties>
+</widget>
