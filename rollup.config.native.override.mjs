@@ -1,7 +1,7 @@
 import { resolve } from "node:path";
 import nativeConfigDefault from "@mendix/pluggable-widgets-tools/configs/rollup.config.native.mjs";
 
-const nativeEntry = resolve("src/ComboTreeNative.tsx");
+const nativeEntry = resolve("src/ComboTreeMultiEntityNative.tsx");
 
 function isNativeBundleOutput(output) {
     if (!output || typeof output !== "object") {
@@ -31,3 +31,4 @@ export default async function nativeOverrideConfig(args) {
         };
     });
 }
+

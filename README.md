@@ -40,4 +40,4 @@ Primary output (recommended):
 
 ## Build output
 
-- `dist/1.0.0/olari.combotreemultientity.ComboTree.mpk`
+- `dist/1.0.0/olari.combotreemultientity.ComboTreeMultiEntity.mpk`

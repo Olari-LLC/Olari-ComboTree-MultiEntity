@@ -1,5 +1,5 @@
 /**
- * This file was generated from ComboTree.xml
+ * This file was generated from ComboTreeMultiEntity.xml
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix Widgets Framework Team
  */
@@ -16,7 +16,7 @@ export type ReadOnlyStyleEnum = "bordered" | "text";
 
 export type FilterTypeEnum = "contains" | "startsWith";
 
-export interface ComboTreeContainerProps {
+export interface ComboTreeMultiEntityContainerProps {
     name: string;
     tabIndex?: number;
     id: string;
@@ -70,7 +70,7 @@ export interface ComboTreeContainerProps {
     ariaLabel?: DynamicValue<string>;
 }
 
-export interface ComboTreePreviewProps {
+export interface ComboTreeMultiEntityPreviewProps {
     readOnly: boolean;
     renderMode: "design" | "xray" | "structure";
     translate: (text: string) => string;

@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
-import { ComboTreePreviewProps } from "../typings/ComboTreeProps";
+import { ComboTreeMultiEntityPreviewProps } from "../typings/ComboTreeMultiEntityProps";
 
-export function preview(_props: ComboTreePreviewProps): ReactElement {
+export function preview(_props: ComboTreeMultiEntityPreviewProps): ReactElement {
     return (
         <div
             style={{
@@ -25,3 +25,5 @@ export function preview(_props: ComboTreePreviewProps): ReactElement {
 export function getPreviewCss(): string {
     return "";
 }
+
+

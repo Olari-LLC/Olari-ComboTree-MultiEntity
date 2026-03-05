@@ -4,7 +4,7 @@
     xmlns="http://www.mendix.com/widget/1.0/"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
-    <name>ComboTree MultiEntity</name>
+    <name>Olari ComboTree MultiEntity</name>
     <description>Dropdown tree widget that combines up to 3 related entities into one parent-child selection tree.</description>
     <studioProCategory>Input elements</studioProCategory>
     <studioCategory>Display</studioCategory>
@@ -41,18 +41,21 @@
                 </property>
                 <property key="level1Icon" type="attribute" dataSource="level1DataSource" required="false">
                     <caption>Level 1 icon class</caption>
+                    <description>Optional icon class for level 1 records.</description>
                     <attributeTypes>
                         <attributeType name="String" />
                     </attributeTypes>
                 </property>
                 <property key="level1ExpandedAttr" type="attribute" dataSource="level1DataSource" required="false">
                     <caption>Level 1 expanded</caption>
+                    <description>Optional boolean that sets initial expanded state for level 1 records.</description>
                     <attributeTypes>
                         <attributeType name="Boolean" />
                     </attributeTypes>
                 </property>
                 <property key="level1SelectableAttr" type="attribute" dataSource="level1DataSource" required="false">
                     <caption>Level 1 selectable</caption>
+                    <description>Optional boolean that controls whether level 1 records can be selected.</description>
                     <attributeTypes>
                         <attributeType name="Boolean" />
                     </attributeTypes>
@@ -81,7 +84,7 @@
                         <attributeType name="String" />
                     </attributeTypes>
                 </property>
-                <property key="level2ParentRef" type="association" dataSource="level2DataSource" required="true">
+                <property key="level2ParentRef" type="association" dataSource="level2DataSource" selectableObjects="level1DataSource" required="true">
                     <caption>Level 2 parent reference</caption>
                     <description>Reference from level 2 item to its level 1 parent.</description>
                     <associationTypes>
@@ -97,18 +100,21 @@
                 </property>
                 <property key="level2Icon" type="attribute" dataSource="level2DataSource" required="false">
                     <caption>Level 2 icon class</caption>
+                    <description>Optional icon class for level 2 records.</description>
                     <attributeTypes>
                         <attributeType name="String" />
                     </attributeTypes>
                 </property>
                 <property key="level2ExpandedAttr" type="attribute" dataSource="level2DataSource" required="false">
                     <caption>Level 2 expanded</caption>
+                    <description>Optional boolean that sets initial expanded state for level 2 records.</description>
                     <attributeTypes>
                         <attributeType name="Boolean" />
                     </attributeTypes>
                 </property>
                 <property key="level2SelectableAttr" type="attribute" dataSource="level2DataSource" required="false">
                     <caption>Level 2 selectable</caption>
+                    <description>Optional boolean that controls whether level 2 records can be selected.</description>
                     <attributeTypes>
                         <attributeType name="Boolean" />
                     </attributeTypes>
@@ -141,7 +147,7 @@
                         <attributeType name="String" />
                     </attributeTypes>
                 </property>
-                <property key="level3ParentRef" type="association" dataSource="level3DataSource" required="false">
+                <property key="level3ParentRef" type="association" dataSource="level3DataSource" selectableObjects="level2DataSource" required="false">
                     <caption>Level 3 parent reference</caption>
                     <description>Reference from level 3 item to its level 2 parent.</description>
                     <associationTypes>
@@ -157,18 +163,21 @@
                 </property>
                 <property key="level3Icon" type="attribute" dataSource="level3DataSource" required="false">
                     <caption>Level 3 icon class</caption>
+                    <description>Optional icon class for level 3 records.</description>
                     <attributeTypes>
                         <attributeType name="String" />
                     </attributeTypes>
                 </property>
                 <property key="level3ExpandedAttr" type="attribute" dataSource="level3DataSource" required="false">
                     <caption>Level 3 expanded</caption>
+                    <description>Optional boolean that sets initial expanded state for level 3 records.</description>
                     <attributeTypes>
                         <attributeType name="Boolean" />
                     </attributeTypes>
                 </property>
                 <property key="level3SelectableAttr" type="attribute" dataSource="level3DataSource" required="false">
                     <caption>Level 3 selectable</caption>
+                    <description>Optional boolean that controls whether level 3 records can be selected.</description>
                     <attributeTypes>
                         <attributeType name="Boolean" />
                     </attributeTypes>
@@ -199,21 +208,21 @@
             </propertyGroup>
 
             <propertyGroup caption="Output associations">
-                <property key="selectedLevel1RefSet" type="association" required="false">
+                <property key="selectedLevel1RefSet" type="association" selectableObjects="level1DataSource" required="false">
                     <caption>Selected level 1 references</caption>
                     <description>Reference set to store selected level 1 objects (for example selected countries).</description>
                     <associationTypes>
                         <associationType name="ReferenceSet" />
                     </associationTypes>
                 </property>
-                <property key="selectedLevel2RefSet" type="association" required="false">
+                <property key="selectedLevel2RefSet" type="association" selectableObjects="level2DataSource" required="false">
                     <caption>Selected level 2 references</caption>
                     <description>Reference set to store selected level 2 objects (for example selected states/provinces).</description>
                     <associationTypes>
                         <associationType name="ReferenceSet" />
                     </associationTypes>
                 </property>
-                <property key="selectedLevel3RefSet" type="association" required="false">
+                <property key="selectedLevel3RefSet" type="association" selectableObjects="level3DataSource" required="false">
                     <caption>Selected level 3 references</caption>
                     <description>Reference set to store selected level 3 objects (for example selected counties).</description>
                     <associationTypes>

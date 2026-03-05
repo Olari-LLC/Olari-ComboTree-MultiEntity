@@ -1,13 +1,15 @@
-import { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
-import { View } from "react-native";
+import { KeyboardEvent, ReactElement, useCallback, useEffect, useMemo, useState } from "react";
+import classNames from "classnames";
 import { ObjectItem } from "mendix";
-import { ComboTreeContainerProps } from "../typings/ComboTreeProps";
-import { DropdownPanelNative } from "./components/native/DropdownPanel.native";
-import { InputDisplayNative } from "./components/native/InputDisplay.native";
+import { ComboTreeMultiEntityContainerProps } from "../typings/ComboTreeMultiEntityProps";
+import { InputDisplay } from "./components/web/InputDisplay";
+import { DropdownPanel } from "./components/web/DropdownPanel";
+import { useDropdown } from "./hooks/useDropdown";
 import { useSelection } from "./hooks/useSelection";
 import { useTreeData } from "./hooks/useTreeData";
-import { flattenTree } from "./utils/treeBuilder";
+import { flattenTree, flattenVisibleTree } from "./utils/treeBuilder";
 import { TreeNode } from "./utils/types";
+import "./ui/ComboTree.scss";
 
 type ReferenceSetOutput = {
     readOnly: boolean;
@@ -31,7 +33,7 @@ function getInitialExpandedNodeIds(tree: TreeNode[], expandAll: boolean): Set<st
     return expanded;
 }
 
-export default function ComboTree(props: ComboTreeContainerProps): ReactElement {
+export default function ComboTree(props: ComboTreeMultiEntityContainerProps): ReactElement {
     const {
         level1DataSource,
         level1Id,
@@ -69,20 +71,23 @@ export default function ComboTree(props: ComboTreeContainerProps): ReactElement 
         selectedItemsDisplay,
         showEntityBadge,
         clearable,
+        maxDropdownHeight,
         expandMode,
         defaultExpandAll,
         showNodeCount,
+        readOnlyStyle,
         allowFiltering,
         filterType,
         filterPlaceholder,
         onChangeAction,
         onOpenAction,
         onCloseAction,
-        ariaLabel
+        ariaLabel,
+        name,
+        tabIndex
     } = props;
 
-    const [isOpen, setIsOpen] = useState(false);
-    const [filterText, setFilterText] = useState("");
+    const dropdown = useDropdown({ onOpenAction, onCloseAction });
     const [localSelectedIds, setLocalSelectedIds] = useState<Set<string>>(new Set());
 
     const {
@@ -90,6 +95,7 @@ export default function ComboTree(props: ComboTreeContainerProps): ReactElement 
         filteredTree,
         nodeMap,
         selectedCaptions,
+        isLoading,
         objectByNodeId,
         level1NodeIdByObjectId,
         level2NodeIdByObjectId,
@@ -121,7 +127,7 @@ export default function ComboTree(props: ComboTreeContainerProps): ReactElement 
         level3SelectableAttr,
         selectedIds: localSelectedIds,
         autoCheckParent,
-        filterText,
+        filterText: dropdown.filterText,
         filterType
     });
 
@@ -163,6 +169,7 @@ export default function ComboTree(props: ComboTreeContainerProps): ReactElement 
     ]);
 
     const hasOutputBinding = Boolean(selectedLevel1RefSet || selectedLevel2RefSet || selectedLevel3RefSet);
+
     const currentSelectedIds = useMemo(
         () => (hasOutputBinding ? selectedFromRefOutputs : localSelectedIds),
         [hasOutputBinding, selectedFromRefOutputs, localSelectedIds]
@@ -264,24 +271,6 @@ export default function ComboTree(props: ComboTreeContainerProps): ReactElement 
         setExpandedNodeIds(getInitialExpandedNodeIds(tree, defaultExpandAll));
     }, [tree, defaultExpandAll, hasExpansionInteraction]);
 
-    const handleOpen = useCallback(() => {
-        if (isReadOnly) {
-            return;
-        }
-        setIsOpen(true);
-        if (onOpenAction?.canExecute) {
-            onOpenAction.execute();
-        }
-    }, [isReadOnly, onOpenAction]);
-
-    const handleClose = useCallback(() => {
-        setIsOpen(false);
-        setFilterText("");
-        if (onCloseAction?.canExecute) {
-            onCloseAction.execute();
-        }
-    }, [onCloseAction]);
-
     const handleToggleExpand = useCallback(
         (nodeId: string) => {
             setHasExpansionInteraction(true);
@@ -314,13 +303,139 @@ export default function ComboTree(props: ComboTreeContainerProps): ReactElement 
         (nodeId: string) => {
             selection.toggleNode(nodeId);
             if (selectionMode === "single") {
-                handleClose();
+                dropdown.close();
             }
         },
-        [selection, selectionMode, handleClose]
+        [selection, selectionMode, dropdown]
     );
 
-    const forceExpandAll = allowFiltering && filterText.trim().length > 0;
+    const forceExpandAll = allowFiltering && dropdown.filterText.trim().length > 0;
+
+    const visibleNodes = useMemo(() => {
+        return flattenVisibleTree(filteredTree, expandedNodeIds, forceExpandAll);
+    }, [filteredTree, expandedNodeIds, forceExpandAll]);
+
+    const [activeNodeId, setActiveNodeId] = useState<string | undefined>(undefined);
+
+    useEffect(() => {
+        if (!dropdown.isOpen) {
+            setActiveNodeId(undefined);
+            return;
+        }
+
+        if (visibleNodes.length === 0) {
+            setActiveNodeId(undefined);
+            return;
+        }
+
+        if (activeNodeId && visibleNodes.some(node => node.id === activeNodeId)) {
+            return;
+        }
+
+        const selectedVisible = visibleNodes.find(node => currentSelectedIds.has(node.id));
+        setActiveNodeId(selectedVisible?.id ?? visibleNodes[0].id);
+    }, [dropdown.isOpen, visibleNodes, activeNodeId, currentSelectedIds]);
+
+    const handleContainerKeyDown = useCallback(
+        (event: KeyboardEvent<HTMLDivElement>) => {
+            if (isReadOnly) {
+                return;
+            }
+
+            const openKeys = event.key === "ArrowDown" || event.key === "Enter" || event.key === " ";
+            if (!dropdown.isOpen) {
+                if (openKeys) {
+                    event.preventDefault();
+                    dropdown.open();
+                }
+                return;
+            }
+
+            if (event.key === "Escape") {
+                event.preventDefault();
+                dropdown.close();
+                return;
+            }
+
+            if (visibleNodes.length === 0) {
+                return;
+            }
+
+            const currentIndex = visibleNodes.findIndex(node => node.id === activeNodeId);
+            const safeIndex = currentIndex >= 0 ? currentIndex : 0;
+            const activeNode = visibleNodes[safeIndex];
+
+            if (event.key === "ArrowDown") {
+                event.preventDefault();
+                const nextIndex = Math.min(safeIndex + 1, visibleNodes.length - 1);
+                setActiveNodeId(visibleNodes[nextIndex].id);
+                return;
+            }
+
+            if (event.key === "ArrowUp") {
+                event.preventDefault();
+                const nextIndex = Math.max(safeIndex - 1, 0);
+                setActiveNodeId(visibleNodes[nextIndex].id);
+                return;
+            }
+
+            if (event.key === "ArrowRight") {
+                if (!activeNode?.hasChildren) {
+                    return;
+                }
+
+                event.preventDefault();
+                if (!forceExpandAll && !expandedNodeIds.has(activeNode.id)) {
+                    handleToggleExpand(activeNode.id);
+                    return;
+                }
+
+                if (activeNode.children.length > 0) {
+                    setActiveNodeId(activeNode.children[0].id);
+                }
+                return;
+            }
+
+            if (event.key === "ArrowLeft") {
+                if (!activeNode) {
+                    return;
+                }
+
+                event.preventDefault();
+                if (!forceExpandAll && activeNode.hasChildren && expandedNodeIds.has(activeNode.id)) {
+                    handleToggleExpand(activeNode.id);
+                    return;
+                }
+
+                if (activeNode.parentId) {
+                    const parent = nodeMap.get(activeNode.parentId);
+                    if (parent) {
+                        setActiveNodeId(parent.id);
+                    }
+                }
+                return;
+            }
+
+            if (event.key === "Enter" || event.key === " ") {
+                if (!activeNode?.selectable) {
+                    return;
+                }
+                event.preventDefault();
+                handleToggleSelect(activeNode.id);
+            }
+        },
+        [
+            isReadOnly,
+            dropdown,
+            visibleNodes,
+            activeNodeId,
+            forceExpandAll,
+            expandedNodeIds,
+            handleToggleExpand,
+            nodeMap,
+            handleToggleSelect
+        ]
+    );
 
     const allSelectable = useMemo(() => {
         const allNodes = flattenTree(tree);
@@ -334,42 +449,66 @@ export default function ComboTree(props: ComboTreeContainerProps): ReactElement 
     const allSelected = allSelectable.length > 0 && selectedCount === allSelectable.length;
     const partialSelected = selectedCount > 0 && !allSelected;
 
+    if (isReadOnly && readOnlyStyle === "text") {
+        return (
+            <div className="widget-combotree widget-combotree--readonly-text">
+                <span>{selectedCaptions.length > 0 ? selectedCaptions.join(", ") : "\u00A0"}</span>
+            </div>
+        );
+    }
+
     return (
-        <View>
-            <InputDisplayNative
+        <div
+            ref={dropdown.containerRef}
+            className={classNames("widget-combotree", {
+                "widget-combotree--open": dropdown.isOpen,
+                "widget-combotree--readonly": isReadOnly,
+                "widget-combotree--loading": isLoading
+            })}
+            onKeyDown={handleContainerKeyDown}
+        >
+            <InputDisplay
                 selectedCaptions={selectedCaptions}
                 selectedItemsDisplay={selectedItemsDisplay}
                 placeholder={placeholderText?.value ?? "Select..."}
+                isOpen={dropdown.isOpen}
                 clearable={clearable}
-                onPress={handleOpen}
+                onToggle={dropdown.toggle}
                 onClear={selection.clearAll}
                 readOnly={isReadOnly}
+                tabIndex={tabIndex}
+                ariaLabel={ariaLabel?.value}
+                inputId={name}
             />
 
-            <DropdownPanelNative
-                visible={isOpen}
-                onClose={handleClose}
-                tree={filteredTree}
-                selectionMode={selectionMode}
-                showNodeCount={showNodeCount}
-                showEntityBadge={showEntityBadge}
-                expandedNodeIds={expandedNodeIds}
-                forceExpandAll={forceExpandAll}
-                onToggleExpand={handleToggleExpand}
-                onToggleSelect={handleToggleSelect}
-                selectedIds={currentSelectedIds}
-                allowFiltering={allowFiltering}
-                filterText={filterText}
-                onFilterChange={setFilterText}
-                filterPlaceholder={filterPlaceholder?.value ?? "Search..."}
-                noOptionsText={noOptionsText?.value ?? "No results found"}
-                showSelectAll={showSelectAll}
-                onSelectAll={selection.selectAll}
-                onClearAll={selection.clearAll}
-                allSelected={allSelected}
-                partialSelected={partialSelected}
-                title={ariaLabel?.value ?? "Select"}
-            />
-        </View>
+            {dropdown.isOpen && (
+                <DropdownPanel
+                    tree={filteredTree}
+                    selectionMode={selectionMode}
+                    showNodeCount={showNodeCount}
+                    showEntityBadge={showEntityBadge}
+                    expandedNodeIds={expandedNodeIds}
+                    forceExpandAll={forceExpandAll}
+                    activeNodeId={activeNodeId}
+                    onActivateNode={nodeId => setActiveNodeId(nodeId)}
+                    onToggleExpand={handleToggleExpand}
+                    onToggleSelect={handleToggleSelect}
+                    selectedIds={currentSelectedIds}
+                    maxHeight={maxDropdownHeight}
+                    allowFiltering={allowFiltering}
+                    filterText={dropdown.filterText}
+                    onFilterChange={dropdown.setFilterText}
+                    filterPlaceholder={filterPlaceholder?.value ?? "Search..."}
+                    noOptionsText={noOptionsText?.value ?? "No results found"}
+                    showSelectAll={showSelectAll}
+                    onSelectAll={selection.selectAll}
+                    onClearAll={selection.clearAll}
+                    allSelected={allSelected}
+                    partialSelected={partialSelected}
+                />
+            )}
+        </div>
     );
 }
+
+

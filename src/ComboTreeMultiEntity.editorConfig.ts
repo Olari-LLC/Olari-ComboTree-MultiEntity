@@ -1,7 +1,7 @@
-import { ComboTreePreviewProps } from "../typings/ComboTreeProps";
+import { ComboTreeMultiEntityPreviewProps } from "../typings/ComboTreeMultiEntityProps";
 import { hidePropertiesIn, Properties } from "@mendix/pluggable-widgets-tools";
 
-export function getProperties(values: ComboTreePreviewProps, defaultProperties: Properties): Properties {
+export function getProperties(values: ComboTreeMultiEntityPreviewProps, defaultProperties: Properties): Properties {
     if (values.selectionMode === "single") {
         hidePropertiesIn(defaultProperties, values, [
             "autoCheckChildren",
@@ -35,3 +35,5 @@ export function getProperties(values: ComboTreePreviewProps, defaultProperties: 
 export function getPreview(): null {
     return null;
 }
+
+

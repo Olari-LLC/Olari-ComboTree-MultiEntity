@@ -1,6 +1,7 @@
 ## [1.0.1] - 2026-03-04
 
 - Added release note coverage for DataGrid Core usage.
+- Updated naming fields to follow `olari.<widgetname>` conventions across package metadata.
 - Clarified that selection output can be handled fully in-widget through level-specific reference set outputs:
   - `selectedLevel1RefSet`
   - `selectedLevel2RefSet`

@@ -1,6 +1,6 @@
 {
   "name": "olari.combotreemultientity",
-  "widgetName": "ComboTree",
+  "widgetName": "ComboTreeMultiEntity",
   "version": "1.0.0",
   "description": "Dropdown tree widget with multi-entity hierarchical selection (up to 3 levels) for Mendix.",
   "author": "Olari",
@@ -11,7 +11,7 @@
   "mxpackage": {
     "name": "olari.combotreemultientity",
     "type": "widget",
-    "mpkName": "olari.combotreemultientity.mpk"
+    "mpkName": "olari.combotreemultientity.ComboTreeMultiEntity.mpk"
   },
   "packagePath": "olari.combotreemultientity",
   "scripts": {
