@@ -2,6 +2,11 @@
 
 `olari.combotreemultientity` is a Mendix pluggable widget that builds a single tree from up to 3 related entities.
 
+## Images
+
+![Olari ComboTree MultiEntity Cover 1](assets/marketplace/cover-1-olari-combotree-multientity.png)
+![Olari ComboTree MultiEntity Cover 2](assets/marketplace/cover-2-olari-combotree-multientity.png)
+
 ## What is new
 
 - Separate data sources for level 1, level 2, and optional level 3
