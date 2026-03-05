@@ -32,6 +32,12 @@ Primary output (recommended):
 - `npm run build`: web + native build
 - `npm run release`: web production release
 
+## Local Dev Config
+
+- Create a local `.env` file (not committed).
+- Set `MX_PROJECT_PATH` to your Mendix app path.
+- Use `.env.example` as the template.
+
 ## Build output
 
 - `dist/1.0.0/olari.combotreemultientity.ComboTree.mpk`
