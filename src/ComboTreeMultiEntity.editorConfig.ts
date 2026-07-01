@@ -32,8 +32,4 @@ export function getProperties(values: ComboTreeMultiEntityPreviewProps, defaultP
     return defaultProperties;
 }
 
-export function getPreview(): null {
-    return null;
-}
-
 
