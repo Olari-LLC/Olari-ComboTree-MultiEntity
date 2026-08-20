@@ -15,50 +15,37 @@
                     <caption>Level 1 data source</caption>
                     <description>Root entity records (for example: Country).</description>
                 </property>
-                <property key="level1Id" type="attribute" dataSource="level1DataSource" required="true">
+                <property key="level1Id" type="expression" dataSource="level1DataSource" required="true">
                     <caption>Level 1 ID</caption>
-                    <description>Unique ID for level 1 records.</description>
-                    <attributeTypes>
-                        <attributeType name="String" />
-                        <attributeType name="Integer" />
-                        <attributeType name="Long" />
-                        <attributeType name="AutoNumber" />
-                    </attributeTypes>
+                    <description>Unique ID for level 1 records. Expression: pick an attribute or build a dynamic value (use toString() for numeric attributes).</description>
+                    <returnType type="String" />
                 </property>
-                <property key="level1Caption" type="attribute" dataSource="level1DataSource" required="true">
+                <property key="level1Caption" type="expression" dataSource="level1DataSource" required="true">
                     <caption>Level 1 caption</caption>
-                    <description>Display caption for level 1 records.</description>
-                    <attributeTypes>
-                        <attributeType name="String" />
-                    </attributeTypes>
+                    <description>Display caption for level 1 records. Expression: attribute or dynamic value.</description>
+                    <returnType type="String" />
                 </property>
-                <property key="level1Label" type="textTemplate" required="false">
+                <property key="level1Label" type="textTemplate" dataSource="level1DataSource" required="false">
                     <caption>Level 1 label</caption>
-                    <description>Badge label shown for level 1 items.</description>
+                    <description>Badge label shown for level 1 items. Template parameters can use $currentObject (the level 1 record).</description>
                     <translations>
                         <translation lang="en_US">Level 1</translation>
                     </translations>
                 </property>
-                <property key="level1Icon" type="attribute" dataSource="level1DataSource" required="false">
+                <property key="level1Icon" type="expression" dataSource="level1DataSource" required="false">
                     <caption>Level 1 icon class</caption>
-                    <description>Optional icon class for level 1 records.</description>
-                    <attributeTypes>
-                        <attributeType name="String" />
-                    </attributeTypes>
+                    <description>Optional CSS icon class for level 1 records (e.g. 'mx-icon-lined mx-icon-folder' or a Glyphicon class). Expression: attribute, literal, or conditional.</description>
+                    <returnType type="String" />
                 </property>
-                <property key="level1ExpandedAttr" type="attribute" dataSource="level1DataSource" required="false">
+                <property key="level1ExpandedAttr" type="expression" dataSource="level1DataSource" required="false">
                     <caption>Level 1 expanded</caption>
-                    <description>Optional boolean that sets initial expanded state for level 1 records.</description>
-                    <attributeTypes>
-                        <attributeType name="Boolean" />
-                    </attributeTypes>
+                    <description>Optional boolean expression that sets initial expanded state for level 1 records.</description>
+                    <returnType type="Boolean" />
                 </property>
-                <property key="level1SelectableAttr" type="attribute" dataSource="level1DataSource" required="false">
+                <property key="level1SelectableAttr" type="expression" dataSource="level1DataSource" required="false">
                     <caption>Level 1 selectable</caption>
-                    <description>Optional boolean that controls whether level 1 records can be selected.</description>
-                    <attributeTypes>
-                        <attributeType name="Boolean" />
-                    </attributeTypes>
+                    <description>Optional boolean expression that controls whether level 1 records can be selected.</description>
+                    <returnType type="Boolean" />
                 </property>
             </propertyGroup>
 
@@ -67,22 +54,15 @@
                     <caption>Level 2 data source</caption>
                     <description>Child entity records (for example: State/Province).</description>
                 </property>
-                <property key="level2Id" type="attribute" dataSource="level2DataSource" required="true">
+                <property key="level2Id" type="expression" dataSource="level2DataSource" required="true">
                     <caption>Level 2 ID</caption>
-                    <description>Unique ID for level 2 records.</description>
-                    <attributeTypes>
-                        <attributeType name="String" />
-                        <attributeType name="Integer" />
-                        <attributeType name="Long" />
-                        <attributeType name="AutoNumber" />
-                    </attributeTypes>
+                    <description>Unique ID for level 2 records. Expression: pick an attribute or build a dynamic value (use toString() for numeric attributes).</description>
+                    <returnType type="String" />
                 </property>
-                <property key="level2Caption" type="attribute" dataSource="level2DataSource" required="true">
+                <property key="level2Caption" type="expression" dataSource="level2DataSource" required="true">
                     <caption>Level 2 caption</caption>
-                    <description>Display caption for level 2 records.</description>
-                    <attributeTypes>
-                        <attributeType name="String" />
-                    </attributeTypes>
+                    <description>Display caption for level 2 records. Expression: attribute or dynamic value.</description>
+                    <returnType type="String" />
                 </property>
                 <property key="level2ParentRef" type="association" dataSource="level2DataSource" selectableObjects="level1DataSource" required="true">
                     <caption>Level 2 parent reference</caption>
@@ -91,33 +71,27 @@
                         <associationType name="Reference" />
                     </associationTypes>
                 </property>
-                <property key="level2Label" type="textTemplate" required="false">
+                <property key="level2Label" type="textTemplate" dataSource="level2DataSource" required="false">
                     <caption>Level 2 label</caption>
-                    <description>Badge label shown for level 2 items.</description>
+                    <description>Badge label shown for level 2 items. Template parameters can use $currentObject (the level 2 record).</description>
                     <translations>
                         <translation lang="en_US">Level 2</translation>
                     </translations>
                 </property>
-                <property key="level2Icon" type="attribute" dataSource="level2DataSource" required="false">
+                <property key="level2Icon" type="expression" dataSource="level2DataSource" required="false">
                     <caption>Level 2 icon class</caption>
-                    <description>Optional icon class for level 2 records.</description>
-                    <attributeTypes>
-                        <attributeType name="String" />
-                    </attributeTypes>
+                    <description>Optional CSS icon class for level 2 records (e.g. 'mx-icon-lined mx-icon-folder' or a Glyphicon class). Expression: attribute, literal, or conditional.</description>
+                    <returnType type="String" />
                 </property>
-                <property key="level2ExpandedAttr" type="attribute" dataSource="level2DataSource" required="false">
+                <property key="level2ExpandedAttr" type="expression" dataSource="level2DataSource" required="false">
                     <caption>Level 2 expanded</caption>
-                    <description>Optional boolean that sets initial expanded state for level 2 records.</description>
-                    <attributeTypes>
-                        <attributeType name="Boolean" />
-                    </attributeTypes>
+                    <description>Optional boolean expression that sets initial expanded state for level 2 records.</description>
+                    <returnType type="Boolean" />
                 </property>
-                <property key="level2SelectableAttr" type="attribute" dataSource="level2DataSource" required="false">
+                <property key="level2SelectableAttr" type="expression" dataSource="level2DataSource" required="false">
                     <caption>Level 2 selectable</caption>
-                    <description>Optional boolean that controls whether level 2 records can be selected.</description>
-                    <attributeTypes>
-                        <attributeType name="Boolean" />
-                    </attributeTypes>
+                    <description>Optional boolean expression that controls whether level 2 records can be selected.</description>
+                    <returnType type="Boolean" />
                 </property>
             </propertyGroup>
 
@@ -130,22 +104,15 @@
                     <caption>Level 3 data source</caption>
                     <description>Third level child entity records.</description>
                 </property>
-                <property key="level3Id" type="attribute" dataSource="level3DataSource" required="false">
+                <property key="level3Id" type="expression" dataSource="level3DataSource" required="false">
                     <caption>Level 3 ID</caption>
-                    <description>Unique ID for level 3 records.</description>
-                    <attributeTypes>
-                        <attributeType name="String" />
-                        <attributeType name="Integer" />
-                        <attributeType name="Long" />
-                        <attributeType name="AutoNumber" />
-                    </attributeTypes>
+                    <description>Unique ID for level 3 records. Expression: pick an attribute or build a dynamic value (use toString() for numeric attributes).</description>
+                    <returnType type="String" />
                 </property>
-                <property key="level3Caption" type="attribute" dataSource="level3DataSource" required="false">
+                <property key="level3Caption" type="expression" dataSource="level3DataSource" required="false">
                     <caption>Level 3 caption</caption>
-                    <description>Display caption for level 3 records.</description>
-                    <attributeTypes>
-                        <attributeType name="String" />
-                    </attributeTypes>
+                    <description>Display caption for level 3 records. Expression: attribute or dynamic value.</description>
+                    <returnType type="String" />
                 </property>
                 <property key="level3ParentRef" type="association" dataSource="level3DataSource" selectableObjects="level2DataSource" required="false">
                     <caption>Level 3 parent reference</caption>
@@ -154,33 +121,27 @@
                         <associationType name="Reference" />
                     </associationTypes>
                 </property>
-                <property key="level3Label" type="textTemplate" required="false">
+                <property key="level3Label" type="textTemplate" dataSource="level3DataSource" required="false">
                     <caption>Level 3 label</caption>
-                    <description>Badge label shown for level 3 items.</description>
+                    <description>Badge label shown for level 3 items. Template parameters can use $currentObject (the level 3 record).</description>
                     <translations>
                         <translation lang="en_US">Level 3</translation>
                     </translations>
                 </property>
-                <property key="level3Icon" type="attribute" dataSource="level3DataSource" required="false">
+                <property key="level3Icon" type="expression" dataSource="level3DataSource" required="false">
                     <caption>Level 3 icon class</caption>
-                    <description>Optional icon class for level 3 records.</description>
-                    <attributeTypes>
-                        <attributeType name="String" />
-                    </attributeTypes>
+                    <description>Optional CSS icon class for level 3 records (e.g. 'mx-icon-lined mx-icon-folder' or a Glyphicon class). Expression: attribute, literal, or conditional.</description>
+                    <returnType type="String" />
                 </property>
-                <property key="level3ExpandedAttr" type="attribute" dataSource="level3DataSource" required="false">
+                <property key="level3ExpandedAttr" type="expression" dataSource="level3DataSource" required="false">
                     <caption>Level 3 expanded</caption>
-                    <description>Optional boolean that sets initial expanded state for level 3 records.</description>
-                    <attributeTypes>
-                        <attributeType name="Boolean" />
-                    </attributeTypes>
+                    <description>Optional boolean expression that sets initial expanded state for level 3 records.</description>
+                    <returnType type="Boolean" />
                 </property>
-                <property key="level3SelectableAttr" type="attribute" dataSource="level3DataSource" required="false">
+                <property key="level3SelectableAttr" type="expression" dataSource="level3DataSource" required="false">
                     <caption>Level 3 selectable</caption>
-                    <description>Optional boolean that controls whether level 3 records can be selected.</description>
-                    <attributeTypes>
-                        <attributeType name="Boolean" />
-                    </attributeTypes>
+                    <description>Optional boolean expression that controls whether level 3 records can be selected.</description>
+                    <returnType type="Boolean" />
                 </property>
             </propertyGroup>
 

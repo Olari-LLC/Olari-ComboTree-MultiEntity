@@ -1,36 +1,35 @@
 import { useMemo } from "react";
-import { ListAttributeValue, ListReferenceValue, ListValue, ObjectItem } from "mendix";
-import { Big } from "big.js";
+import { ListExpressionValue, ListReferenceValue, ListValue, ObjectItem } from "mendix";
 import { FlatNodeData } from "../utils/types";
 import { buildNodeMap, buildTree, computeCheckStates, filterTree, getSelectedCaptions } from "../utils/treeBuilder";
 
 interface UseTreeDataProps {
     level1DataSource: ListValue;
-    level1Id: ListAttributeValue<string | Big>;
-    level1Caption: ListAttributeValue<string>;
-    level1Label: string;
-    level1Icon?: ListAttributeValue<string>;
-    level1ExpandedAttr?: ListAttributeValue<boolean>;
-    level1SelectableAttr?: ListAttributeValue<boolean>;
+    level1Id: ListExpressionValue<string>;
+    level1Caption: ListExpressionValue<string>;
+    level1Label?: ListExpressionValue<string>;
+    level1Icon?: ListExpressionValue<string>;
+    level1ExpandedAttr?: ListExpressionValue<boolean>;
+    level1SelectableAttr?: ListExpressionValue<boolean>;
 
     level2DataSource: ListValue;
-    level2Id: ListAttributeValue<string | Big>;
-    level2Caption: ListAttributeValue<string>;
+    level2Id: ListExpressionValue<string>;
+    level2Caption: ListExpressionValue<string>;
     level2ParentRef: ListReferenceValue;
-    level2Label: string;
-    level2Icon?: ListAttributeValue<string>;
-    level2ExpandedAttr?: ListAttributeValue<boolean>;
-    level2SelectableAttr?: ListAttributeValue<boolean>;
+    level2Label?: ListExpressionValue<string>;
+    level2Icon?: ListExpressionValue<string>;
+    level2ExpandedAttr?: ListExpressionValue<boolean>;
+    level2SelectableAttr?: ListExpressionValue<boolean>;
 
     enableLevel3: boolean;
     level3DataSource?: ListValue;
-    level3Id?: ListAttributeValue<string | Big>;
-    level3Caption?: ListAttributeValue<string>;
+    level3Id?: ListExpressionValue<string>;
+    level3Caption?: ListExpressionValue<string>;
     level3ParentRef?: ListReferenceValue;
-    level3Label: string;
-    level3Icon?: ListAttributeValue<string>;
-    level3ExpandedAttr?: ListAttributeValue<boolean>;
-    level3SelectableAttr?: ListAttributeValue<boolean>;
+    level3Label?: ListExpressionValue<string>;
+    level3Icon?: ListExpressionValue<string>;
+    level3ExpandedAttr?: ListExpressionValue<boolean>;
+    level3SelectableAttr?: ListExpressionValue<boolean>;
 
     selectedIds: Set<string>;
     autoCheckParent: boolean;
@@ -59,7 +58,7 @@ interface NodeAssembly {
     level3NodeIdByObjectId: Map<string, string>;
 }
 
-function toStringId(value: string | Big | undefined | null, fallback: string): string {
+function toStringId(value: string | undefined | null, fallback: string): string {
     if (value == null) {
         return fallback;
     }
@@ -124,7 +123,7 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
                     id: idToken,
                     parentId: "",
                     caption: level1Caption.get(item).value ?? "",
-                    entityLabel: level1Label,
+                    entityLabel: level1Label ? level1Label.get(item).value ?? "Level 1" : "Level 1",
                     level: 1,
                     icon: level1Icon ? level1Icon.get(item).value ?? undefined : undefined,
                     expanded: level1ExpandedAttr ? level1ExpandedAttr.get(item).value ?? false : false,
@@ -149,7 +148,7 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
                     id: idToken,
                     parentId: parentToken,
                     caption: level2Caption.get(item).value ?? "",
-                    entityLabel: level2Label,
+                    entityLabel: level2Label ? level2Label.get(item).value ?? "Level 2" : "Level 2",
                     level: 2,
                     icon: level2Icon ? level2Icon.get(item).value ?? undefined : undefined,
                     expanded: level2ExpandedAttr ? level2ExpandedAttr.get(item).value ?? false : false,
@@ -183,7 +182,7 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
                     id: idToken,
                     parentId: parentToken,
                     caption: level3Caption!.get(item).value ?? "",
-                    entityLabel: level3Label,
+                    entityLabel: level3Label ? level3Label.get(item).value ?? "Level 3" : "Level 3",
                     level: 3,
                     icon: level3Icon ? level3Icon.get(item).value ?? undefined : undefined,
                     expanded: level3ExpandedAttr ? level3ExpandedAttr.get(item).value ?? false : false,

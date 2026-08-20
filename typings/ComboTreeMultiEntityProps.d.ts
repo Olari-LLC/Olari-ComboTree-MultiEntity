@@ -3,8 +3,7 @@
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix Widgets Framework Team
  */
-import { ActionValue, DynamicValue, ListValue, ListAttributeValue, ListReferenceValue, ReferenceSetValue } from "mendix";
-import { Big } from "big.js";
+import { ActionValue, DynamicValue, ListValue, ListExpressionValue, ListReferenceValue, ReferenceSetValue } from "mendix";
 
 export type SelectionModeEnum = "single" | "multiple";
 
@@ -21,29 +20,29 @@ export interface ComboTreeMultiEntityContainerProps {
     tabIndex?: number;
     id: string;
     level1DataSource: ListValue;
-    level1Id: ListAttributeValue<string | Big>;
-    level1Caption: ListAttributeValue<string>;
-    level1Label?: DynamicValue<string>;
-    level1Icon?: ListAttributeValue<string>;
-    level1ExpandedAttr?: ListAttributeValue<boolean>;
-    level1SelectableAttr?: ListAttributeValue<boolean>;
+    level1Id: ListExpressionValue<string>;
+    level1Caption: ListExpressionValue<string>;
+    level1Label?: ListExpressionValue<string>;
+    level1Icon?: ListExpressionValue<string>;
+    level1ExpandedAttr?: ListExpressionValue<boolean>;
+    level1SelectableAttr?: ListExpressionValue<boolean>;
     level2DataSource: ListValue;
-    level2Id: ListAttributeValue<string | Big>;
-    level2Caption: ListAttributeValue<string>;
+    level2Id: ListExpressionValue<string>;
+    level2Caption: ListExpressionValue<string>;
     level2ParentRef: ListReferenceValue;
-    level2Label?: DynamicValue<string>;
-    level2Icon?: ListAttributeValue<string>;
-    level2ExpandedAttr?: ListAttributeValue<boolean>;
-    level2SelectableAttr?: ListAttributeValue<boolean>;
+    level2Label?: ListExpressionValue<string>;
+    level2Icon?: ListExpressionValue<string>;
+    level2ExpandedAttr?: ListExpressionValue<boolean>;
+    level2SelectableAttr?: ListExpressionValue<boolean>;
     enableLevel3: boolean;
     level3DataSource?: ListValue;
-    level3Id?: ListAttributeValue<string | Big>;
-    level3Caption?: ListAttributeValue<string>;
+    level3Id?: ListExpressionValue<string>;
+    level3Caption?: ListExpressionValue<string>;
     level3ParentRef?: ListReferenceValue;
-    level3Label?: DynamicValue<string>;
-    level3Icon?: ListAttributeValue<string>;
-    level3ExpandedAttr?: ListAttributeValue<boolean>;
-    level3SelectableAttr?: ListAttributeValue<boolean>;
+    level3Label?: ListExpressionValue<string>;
+    level3Icon?: ListExpressionValue<string>;
+    level3ExpandedAttr?: ListExpressionValue<boolean>;
+    level3SelectableAttr?: ListExpressionValue<boolean>;
     selectionMode: SelectionModeEnum;
     autoCheckChildren: boolean;
     autoCheckParent: boolean;
