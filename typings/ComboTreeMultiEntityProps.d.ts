@@ -3,7 +3,8 @@
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix Widgets Framework Team
  */
-import { ActionValue, DynamicValue, ListValue, ListExpressionValue, ListReferenceValue, ReferenceSetValue } from "mendix";
+import { ComponentType, ReactNode } from "react";
+import { ActionValue, DynamicValue, ListValue, ListExpressionValue, ListReferenceValue, ListWidgetValue, ReferenceSetValue } from "mendix";
 
 export type SelectionModeEnum = "single" | "multiple";
 
@@ -24,6 +25,8 @@ export interface ComboTreeMultiEntityContainerProps {
     level1Caption: ListExpressionValue<string>;
     level1Label?: ListExpressionValue<string>;
     level1Icon?: ListExpressionValue<string>;
+    level1DynamicClass?: ListExpressionValue<string>;
+    level1Content?: ListWidgetValue;
     level1ExpandedAttr?: ListExpressionValue<boolean>;
     level1SelectableAttr?: ListExpressionValue<boolean>;
     level2DataSource: ListValue;
@@ -32,6 +35,8 @@ export interface ComboTreeMultiEntityContainerProps {
     level2ParentRef: ListReferenceValue;
     level2Label?: ListExpressionValue<string>;
     level2Icon?: ListExpressionValue<string>;
+    level2DynamicClass?: ListExpressionValue<string>;
+    level2Content?: ListWidgetValue;
     level2ExpandedAttr?: ListExpressionValue<boolean>;
     level2SelectableAttr?: ListExpressionValue<boolean>;
     enableLevel3: boolean;
@@ -41,6 +46,8 @@ export interface ComboTreeMultiEntityContainerProps {
     level3ParentRef?: ListReferenceValue;
     level3Label?: ListExpressionValue<string>;
     level3Icon?: ListExpressionValue<string>;
+    level3DynamicClass?: ListExpressionValue<string>;
+    level3Content?: ListWidgetValue;
     level3ExpandedAttr?: ListExpressionValue<boolean>;
     level3SelectableAttr?: ListExpressionValue<boolean>;
     selectionMode: SelectionModeEnum;
@@ -78,6 +85,8 @@ export interface ComboTreeMultiEntityPreviewProps {
     level1Caption: string;
     level1Label: string;
     level1Icon: string;
+    level1DynamicClass: string;
+    level1Content: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     level1ExpandedAttr: string;
     level1SelectableAttr: string;
     level2DataSource: {} | { caption: string } | { type: string } | null;
@@ -86,6 +95,8 @@ export interface ComboTreeMultiEntityPreviewProps {
     level2ParentRef: string;
     level2Label: string;
     level2Icon: string;
+    level2DynamicClass: string;
+    level2Content: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     level2ExpandedAttr: string;
     level2SelectableAttr: string;
     enableLevel3: boolean;
@@ -95,6 +106,8 @@ export interface ComboTreeMultiEntityPreviewProps {
     level3ParentRef: string;
     level3Label: string;
     level3Icon: string;
+    level3DynamicClass: string;
+    level3Content: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     level3ExpandedAttr: string;
     level3SelectableAttr: string;
     selectionMode: SelectionModeEnum;

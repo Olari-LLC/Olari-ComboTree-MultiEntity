@@ -67,7 +67,7 @@ export function TreeNodeItem(props: TreeNodeItemProps): ReactElement {
 
     return (
         <li
-            className={classNames("combotree-node", `combotree-node--level-${node.level}`, {
+            className={classNames("combotree-node", `combotree-node--level-${node.level}`, node.dynamicClass, {
                 "combotree-node--expanded": isExpanded,
                 "combotree-node--selected": isSelected,
                 "combotree-node--active": isActive,
@@ -123,9 +123,14 @@ export function TreeNodeItem(props: TreeNodeItemProps): ReactElement {
 
                 {node.icon && <span className={classNames("combotree-node__icon", node.icon)} />}
 
-                {showEntityBadge && <span className="combotree-node__entity-badge">{node.entityLabel}</span>}
-
-                <span className="combotree-node__caption">{node.caption}</span>
+                {node.content ? (
+                    <span className="combotree-node__custom-content">{node.content}</span>
+                ) : (
+                    <>
+                        {showEntityBadge && <span className="combotree-node__entity-badge">{node.entityLabel}</span>}
+                        <span className="combotree-node__caption">{node.caption}</span>
+                    </>
+                )}
 
                 {showNodeCount && node.hasChildren && (
                     <span className="combotree-node__count">({node.children.length})</span>

@@ -37,6 +37,15 @@
                     <description>Optional CSS icon class for level 1 records (e.g. 'mx-icon-lined mx-icon-folder' or a Glyphicon class). Expression: attribute, literal, or conditional.</description>
                     <returnType type="String" />
                 </property>
+                <property key="level1DynamicClass" type="expression" dataSource="level1DataSource" required="false">
+                    <caption>Level 1 dynamic class</caption>
+                    <description>Optional CSS class(es) applied to each level 1 node row. Expression per record — e.g. if $currentObject/Active then 'row-active' else 'row-inactive'.</description>
+                    <returnType type="String" />
+                </property>
+                <property key="level1Content" type="widgets" dataSource="level1DataSource" required="false">
+                    <caption>Level 1 custom content</caption>
+                    <description>Optional custom widgets rendered in place of the caption for each level 1 node.</description>
+                </property>
                 <property key="level1ExpandedAttr" type="expression" dataSource="level1DataSource" required="false">
                     <caption>Level 1 expanded</caption>
                     <description>Optional boolean expression that sets initial expanded state for level 1 records.</description>
@@ -82,6 +91,15 @@
                     <caption>Level 2 icon class</caption>
                     <description>Optional CSS icon class for level 2 records (e.g. 'mx-icon-lined mx-icon-folder' or a Glyphicon class). Expression: attribute, literal, or conditional.</description>
                     <returnType type="String" />
+                </property>
+                <property key="level2DynamicClass" type="expression" dataSource="level2DataSource" required="false">
+                    <caption>Level 2 dynamic class</caption>
+                    <description>Optional CSS class(es) applied to each level 2 node row. Expression per record — e.g. if $currentObject/Active then 'row-active' else 'row-inactive'.</description>
+                    <returnType type="String" />
+                </property>
+                <property key="level2Content" type="widgets" dataSource="level2DataSource" required="false">
+                    <caption>Level 2 custom content</caption>
+                    <description>Optional custom widgets rendered in place of the caption for each level 2 node.</description>
                 </property>
                 <property key="level2ExpandedAttr" type="expression" dataSource="level2DataSource" required="false">
                     <caption>Level 2 expanded</caption>
@@ -132,6 +150,15 @@
                     <caption>Level 3 icon class</caption>
                     <description>Optional CSS icon class for level 3 records (e.g. 'mx-icon-lined mx-icon-folder' or a Glyphicon class). Expression: attribute, literal, or conditional.</description>
                     <returnType type="String" />
+                </property>
+                <property key="level3DynamicClass" type="expression" dataSource="level3DataSource" required="false">
+                    <caption>Level 3 dynamic class</caption>
+                    <description>Optional CSS class(es) applied to each level 3 node row. Expression per record — e.g. if $currentObject/Active then 'row-active' else 'row-inactive'.</description>
+                    <returnType type="String" />
+                </property>
+                <property key="level3Content" type="widgets" dataSource="level3DataSource" required="false">
+                    <caption>Level 3 custom content</caption>
+                    <description>Optional custom widgets rendered in place of the caption for each level 3 node.</description>
                 </property>
                 <property key="level3ExpandedAttr" type="expression" dataSource="level3DataSource" required="false">
                     <caption>Level 3 expanded</caption>

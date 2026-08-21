@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type EntityLevel = 1 | 2 | 3;
 
 export interface TreeNode {
@@ -7,6 +9,8 @@ export interface TreeNode {
     entityLabel: string;
     level: EntityLevel;
     icon?: string;
+    dynamicClass?: string;
+    content?: ReactNode;
     expanded: boolean;
     selectable: boolean;
     children: TreeNode[];
@@ -24,6 +28,8 @@ export interface FlatNodeData {
     entityLabel: string;
     level: EntityLevel;
     icon?: string;
+    dynamicClass?: string;
+    content?: ReactNode;
     expanded?: boolean;
     selectable?: boolean;
 }

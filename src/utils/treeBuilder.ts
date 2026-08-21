@@ -14,6 +14,8 @@ export function buildTree(flatNodes: FlatNodeData[], selectedIds: Set<string>): 
             entityLabel: flat.entityLabel,
             level: flat.level,
             icon: flat.icon,
+            dynamicClass: flat.dynamicClass,
+            content: flat.content,
             expanded: flat.expanded ?? false,
             selectable: flat.selectable ?? true,
             children: [],

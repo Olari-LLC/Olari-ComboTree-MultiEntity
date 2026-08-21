@@ -434,6 +434,15 @@
         line-height: 1.4;
     }
 
+    &__custom-content {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
     &--selected > .combotree-node__content .combotree-node__caption {
         font-weight: 600;
         color: var(--combotree-selected-text);

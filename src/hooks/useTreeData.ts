@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { ListExpressionValue, ListReferenceValue, ListValue, ObjectItem } from "mendix";
+import { ListExpressionValue, ListReferenceValue, ListValue, ListWidgetValue, ObjectItem } from "mendix";
 import { FlatNodeData } from "../utils/types";
 import { buildNodeMap, buildTree, computeCheckStates, filterTree, getSelectedCaptions } from "../utils/treeBuilder";
 
@@ -9,6 +9,8 @@ interface UseTreeDataProps {
     level1Caption: ListExpressionValue<string>;
     level1Label?: ListExpressionValue<string>;
     level1Icon?: ListExpressionValue<string>;
+    level1DynamicClass?: ListExpressionValue<string>;
+    level1Content?: ListWidgetValue;
     level1ExpandedAttr?: ListExpressionValue<boolean>;
     level1SelectableAttr?: ListExpressionValue<boolean>;
 
@@ -18,6 +20,8 @@ interface UseTreeDataProps {
     level2ParentRef: ListReferenceValue;
     level2Label?: ListExpressionValue<string>;
     level2Icon?: ListExpressionValue<string>;
+    level2DynamicClass?: ListExpressionValue<string>;
+    level2Content?: ListWidgetValue;
     level2ExpandedAttr?: ListExpressionValue<boolean>;
     level2SelectableAttr?: ListExpressionValue<boolean>;
 
@@ -28,6 +32,8 @@ interface UseTreeDataProps {
     level3ParentRef?: ListReferenceValue;
     level3Label?: ListExpressionValue<string>;
     level3Icon?: ListExpressionValue<string>;
+    level3DynamicClass?: ListExpressionValue<string>;
+    level3Content?: ListWidgetValue;
     level3ExpandedAttr?: ListExpressionValue<boolean>;
     level3SelectableAttr?: ListExpressionValue<boolean>;
 
@@ -77,6 +83,8 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
         level1Caption,
         level1Label,
         level1Icon,
+        level1DynamicClass,
+        level1Content,
         level1ExpandedAttr,
         level1SelectableAttr,
         level2DataSource,
@@ -85,6 +93,8 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
         level2ParentRef,
         level2Label,
         level2Icon,
+        level2DynamicClass,
+        level2Content,
         level2ExpandedAttr,
         level2SelectableAttr,
         enableLevel3,
@@ -94,6 +104,8 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
         level3ParentRef,
         level3Label,
         level3Icon,
+        level3DynamicClass,
+        level3Content,
         level3ExpandedAttr,
         level3SelectableAttr,
         selectedIds,
@@ -126,6 +138,8 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
                     entityLabel: level1Label ? level1Label.get(item).value ?? "Level 1" : "Level 1",
                     level: 1,
                     icon: level1Icon ? level1Icon.get(item).value ?? undefined : undefined,
+                    dynamicClass: level1DynamicClass ? level1DynamicClass.get(item).value ?? undefined : undefined,
+                    content: level1Content ? level1Content.get(item) : undefined,
                     expanded: level1ExpandedAttr ? level1ExpandedAttr.get(item).value ?? false : false,
                     selectable: level1SelectableAttr ? level1SelectableAttr.get(item).value ?? true : true
                 });
@@ -151,6 +165,8 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
                     entityLabel: level2Label ? level2Label.get(item).value ?? "Level 2" : "Level 2",
                     level: 2,
                     icon: level2Icon ? level2Icon.get(item).value ?? undefined : undefined,
+                    dynamicClass: level2DynamicClass ? level2DynamicClass.get(item).value ?? undefined : undefined,
+                    content: level2Content ? level2Content.get(item) : undefined,
                     expanded: level2ExpandedAttr ? level2ExpandedAttr.get(item).value ?? false : false,
                     selectable: level2SelectableAttr ? level2SelectableAttr.get(item).value ?? true : true
                 });
@@ -185,6 +201,8 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
                     entityLabel: level3Label ? level3Label.get(item).value ?? "Level 3" : "Level 3",
                     level: 3,
                     icon: level3Icon ? level3Icon.get(item).value ?? undefined : undefined,
+                    dynamicClass: level3DynamicClass ? level3DynamicClass.get(item).value ?? undefined : undefined,
+                    content: level3Content ? level3Content.get(item) : undefined,
                     expanded: level3ExpandedAttr ? level3ExpandedAttr.get(item).value ?? false : false,
                     selectable: level3SelectableAttr ? level3SelectableAttr.get(item).value ?? true : true
                 });
@@ -204,6 +222,8 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
         level1Caption,
         level1Label,
         level1Icon,
+        level1DynamicClass,
+        level1Content,
         level1ExpandedAttr,
         level1SelectableAttr,
         level2DataSource,
@@ -212,6 +232,8 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
         level2ParentRef,
         level2Label,
         level2Icon,
+        level2DynamicClass,
+        level2Content,
         level2ExpandedAttr,
         level2SelectableAttr,
         enableLevel3,
@@ -221,6 +243,8 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
         level3ParentRef,
         level3Label,
         level3Icon,
+        level3DynamicClass,
+        level3Content,
         level3ExpandedAttr,
         level3SelectableAttr
     ]);

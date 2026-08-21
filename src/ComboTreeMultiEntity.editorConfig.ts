@@ -23,6 +23,8 @@ export function getProperties(values: ComboTreeMultiEntityPreviewProps, defaultP
             "level3ParentRef",
             "level3Label",
             "level3Icon",
+            "level3DynamicClass",
+            "level3Content",
             "level3ExpandedAttr",
             "level3SelectableAttr",
             "selectedLevel3RefSet"
