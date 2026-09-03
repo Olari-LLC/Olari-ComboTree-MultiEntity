@@ -1,7 +1,14 @@
 import { useMemo } from "react";
 import { ListExpressionValue, ListReferenceValue, ListValue, ListWidgetValue, ObjectItem } from "mendix";
 import { FlatNodeData } from "../utils/types";
-import { buildNodeMap, buildTree, computeCheckStates, filterTree, getSelectedCaptions } from "../utils/treeBuilder";
+import {
+    buildNodeMap,
+    buildTree,
+    computeCheckStates,
+    filterTree,
+    getSelectedCaptions,
+    SelectedCaptionMode
+} from "../utils/treeBuilder";
 
 interface UseTreeDataProps {
     level1DataSource: ListValue;
@@ -41,6 +48,8 @@ interface UseTreeDataProps {
     autoCheckParent: boolean;
     filterText: string;
     filterType: "contains" | "startsWith";
+    selectedCaptionMode?: SelectedCaptionMode;
+    pathDelimiter?: string;
 }
 
 interface UseTreeDataResult {
@@ -111,7 +120,9 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
         selectedIds,
         autoCheckParent,
         filterText,
-        filterType
+        filterType,
+        selectedCaptionMode = "item",
+        pathDelimiter = " : "
     } = props;
 
     const assembled = useMemo<NodeAssembly>(() => {
@@ -264,8 +275,8 @@ export function useTreeData(props: UseTreeDataProps): UseTreeDataResult {
     }, [tree, filterText, filterType]);
 
     const selectedCaptions = useMemo(() => {
-        return getSelectedCaptions(tree, selectedIds);
-    }, [tree, selectedIds]);
+        return getSelectedCaptions(tree, selectedIds, selectedCaptionMode, pathDelimiter);
+    }, [tree, selectedIds, selectedCaptionMode, pathDelimiter]);
 
     const isLoading =
         level1DataSource?.status === "loading" ||

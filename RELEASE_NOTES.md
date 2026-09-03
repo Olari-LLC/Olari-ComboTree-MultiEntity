@@ -1,3 +1,8 @@
+## [2.3.0] - 2026-09-03
+
+- OLA-1880: New Display property **Selected caption** — "Selected item only" (existing behavior, e.g. `County: Bertie`) or "Full path" (ancestor captions joined, e.g. `United States : North Carolina : Bertie`).
+- New **Path delimiter** text property (default ` : `), shown only in Full path mode.
+
 ## Unreleased
 - Updated widget icon assets to the shared Olari icon set.
 

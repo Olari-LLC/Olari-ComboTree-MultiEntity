@@ -159,16 +159,28 @@ export function filterTree(roots: TreeNode[], filterText: string, filterType: "c
     return roots.map(root => filterNode(root)).filter((root): root is TreeNode => root !== null);
 }
 
-export function getSelectedCaptions(roots: TreeNode[], selectedIds: Set<string>): string[] {
+export type SelectedCaptionMode = "item" | "path";
+
+export function getSelectedCaptions(
+    roots: TreeNode[],
+    selectedIds: Set<string>,
+    mode: SelectedCaptionMode = "item",
+    delimiter = " : "
+): string[] {
     const captions: string[] = [];
-    function walk(nodes: TreeNode[]): void {
+    function walk(nodes: TreeNode[], ancestors: string[]): void {
         for (const node of nodes) {
+            const path = [...ancestors, node.caption];
             if (selectedIds.has(node.id)) {
-                captions.push(node.entityLabel ? `${node.entityLabel}: ${node.caption}` : node.caption);
+                if (mode === "path") {
+                    captions.push(path.join(delimiter));
+                } else {
+                    captions.push(node.entityLabel ? `${node.entityLabel}: ${node.caption}` : node.caption);
+                }
             }
-            walk(node.children);
+            walk(node.children, path);
         }
     }
-    walk(roots);
+    walk(roots, []);
     return captions;
 }

@@ -10,6 +10,8 @@ export type SelectionModeEnum = "single" | "multiple";
 
 export type SelectedItemsDisplayEnum = "text" | "chips" | "count";
 
+export type SelectedCaptionModeEnum = "item" | "path";
+
 export type ExpandModeEnum = "multiple" | "single";
 
 export type ReadOnlyStyleEnum = "bordered" | "text";
@@ -60,6 +62,8 @@ export interface ComboTreeMultiEntityContainerProps {
     placeholderText?: DynamicValue<string>;
     noOptionsText?: DynamicValue<string>;
     selectedItemsDisplay: SelectedItemsDisplayEnum;
+    selectedCaptionMode: SelectedCaptionModeEnum;
+    pathDelimiter?: DynamicValue<string>;
     showEntityBadge: boolean;
     clearable: boolean;
     maxDropdownHeight: number;
@@ -120,6 +124,8 @@ export interface ComboTreeMultiEntityPreviewProps {
     placeholderText: string;
     noOptionsText: string;
     selectedItemsDisplay: SelectedItemsDisplayEnum;
+    selectedCaptionMode: SelectedCaptionModeEnum;
+    pathDelimiter: string;
     showEntityBadge: boolean;
     clearable: boolean;
     maxDropdownHeight: number | null;

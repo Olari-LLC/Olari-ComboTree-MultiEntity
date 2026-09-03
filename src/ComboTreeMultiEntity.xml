@@ -243,6 +243,21 @@
                         <enumerationValue key="count">Count badge</enumerationValue>
                     </enumerationValues>
                 </property>
+                <property key="selectedCaptionMode" type="enumeration" defaultValue="item" required="true">
+                    <caption>Selected caption</caption>
+                    <description>Item only: show the selected node with its level badge label (e.g. "County: Bertie"). Full path: show every ancestor caption joined by the path delimiter (e.g. "United States : North Carolina : Bertie").</description>
+                    <enumerationValues>
+                        <enumerationValue key="item">Selected item only</enumerationValue>
+                        <enumerationValue key="path">Full path (Parent : Child)</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="pathDelimiter" type="textTemplate" required="false">
+                    <caption>Path delimiter</caption>
+                    <description>Text placed between path segments when Selected caption is Full path.</description>
+                    <translations>
+                        <translation lang="en_US"> : </translation>
+                    </translations>
+                </property>
                 <property key="showEntityBadge" type="boolean" defaultValue="true">
                     <caption>Show entity badges</caption>
                     <description>Display an entity level badge next to each node caption.</description>

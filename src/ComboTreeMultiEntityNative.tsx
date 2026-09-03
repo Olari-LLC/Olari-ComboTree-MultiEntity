@@ -73,6 +73,8 @@ export default function ComboTree(props: ComboTreeMultiEntityContainerProps): Re
         placeholderText,
         noOptionsText,
         selectedItemsDisplay,
+        selectedCaptionMode,
+        pathDelimiter,
         showEntityBadge,
         clearable,
         expandMode,
@@ -134,7 +136,9 @@ export default function ComboTree(props: ComboTreeMultiEntityContainerProps): Re
         selectedIds: localSelectedIds,
         autoCheckParent,
         filterText,
-        filterType
+        filterType,
+        selectedCaptionMode,
+        pathDelimiter: pathDelimiter?.value ?? " : "
     });
 
     const selectedFromRefOutputs = useMemo(() => {

@@ -11,6 +11,10 @@ export function getProperties(values: ComboTreeMultiEntityPreviewProps, defaultP
         ]);
     }
 
+    if (values.selectedCaptionMode !== "path") {
+        hidePropertiesIn(defaultProperties, values, ["pathDelimiter"]);
+    }
+
     if (!values.allowFiltering) {
         hidePropertiesIn(defaultProperties, values, ["filterType", "filterPlaceholder"]);
     }
